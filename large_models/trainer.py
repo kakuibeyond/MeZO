@@ -656,8 +656,8 @@ class OurTrainer(Trainer):
             # Wait for everyone to get here so we are sur the model has been saved by process 0.
             if is_torch_tpu_available():
                 xm.rendezvous("load_best_model_at_end")
-            elif args.local_rank != -1:
-                dist.barrier()
+            # elif args.local_rank != -1: # -1则表示处于单机模式，非分布式环境
+            #     dist.barrier()
             elif is_sagemaker_mp_enabled():
                 smp.barrier()
 
